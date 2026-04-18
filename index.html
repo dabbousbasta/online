@@ -12,104 +12,189 @@
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
-            padding: 10px;
+            padding: 0;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
             color: #333;
-        }
-        .tabs {
-            display: flex;
-            justify-content: center;
-            background: white;
-            border-radius: 15px 15px 0 0;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-            margin-bottom: 0;
             overflow: hidden;
-            flex-wrap: wrap;
         }
-        .tab-btn {
-            padding: 15px 25px;
+        .menu-btn {
+            position: fixed;
+            top: 15px;
+            right: 15px;
+            z-index: 1000;
+            background: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 1.5em;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .menu-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+        }
+        .menu {
+            position: fixed;
+            top: 70px;
+            right: 15px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+            min-width: 220px;
+            max-height: 60vh;
+            overflow-y: auto;
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+            z-index: 999;
+        }
+        .menu.open {
+            transform: translateX(0);
+        }
+        .menu-item {
+            padding: 18px 25px;
             border: none;
             background: none;
+            width: 100%;
+            text-align: right;
             font-size: 1.1em;
             font-weight: bold;
             color: #666;
             cursor: pointer;
-            transition: all 0.3s ease;
-            border-bottom: 3px solid transparent;
-            white-space: nowrap;
+            transition: all 0.2s ease;
+            border-bottom: 1px solid #f0f0f0;
         }
-        .tab-btn.active {
-            color: #667eea;
+        .menu-item:last-child {
+            border-bottom: none;
+        }
+        .menu-item:hover {
             background: #f8f9ff;
-            border-bottom-color: #667eea;
-        }
-        .tab-btn:hover {
             color: #667eea;
-            background: #f0f0f0;
+            padding-right: 30px;
         }
         .tab-content {
-            background: white;
-            border-radius: 0 0 15px 15px;
-            box-shadow: 0 5px 25px rgba(0,0,0,0.2);
-            padding: 30px;
-            min-height: 80vh;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            padding: 70px 10px 10px;
             overflow: auto;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.4s ease;
         }
         .tab-pane {
             display: none;
+            height: 100%;
         }
         .tab-pane.active {
             display: block;
+        }
+        .tab-pane.active ~ .tab-content {
+            opacity: 1;
+            transform: translateY(0);
         }
         .loading {
             text-align: center;
             color: #666;
             font-style: italic;
-            padding: 50px;
+            padding: 100px 20px;
         }
         iframe {
             width: 100%;
-            height: 700px;
+            height: calc(100vh - 120px);
             border: none;
             border-radius: 10px;
+            display: none;
         }
         .home-header {
             text-align: center;
-            margin-bottom: 30px;
+            margin: 40px 0;
         }
         .logo {
-            width: 150px;
+            width: 160px;
             height: auto;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
             border-radius: 15px;
             box-shadow: 0 6px 20px rgba(0,0,0,0.2);
         }
         .home-title {
-            font-size: 2.5em;
+            font-size: 2.2em;
             color: #333;
             margin: 0;
             text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
         }
-        @media (max-width: 768px) {
-            body { padding: 5px; }
-            .tabs { flex-direction: column; }
-            .tab-btn { padding: 15px; border-bottom: 1px solid #eee; border-radius: 0; }
-            .tab-content { padding: 20px; min-height: 70vh; }
-            iframe { height: 600px; }
-            .logo { width: 120px; }
-            .home-title { font-size: 2em; }
+        .home-desc {
+            font-size: 1.2em;
+            color: #555;
+            margin: 30px auto;
+            max-width: 90%;
+            line-height: 1.6;
+        }
+        @media (min-width: 769px) {
+            /* Desktop: عرض التبويبات العادية */
+            .menu-btn, .menu { display: none; }
+            body { padding: 10px; overflow: visible; }
+            .tabs {
+                display: flex;
+                justify-content: center;
+                background: white;
+                border-radius: 15px 15px 0 0;
+                box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+                margin: 0 auto 0;
+                overflow: hidden;
+                flex-wrap: wrap;
+                max-width: 1000px;
+            }
+            .tab-btn {
+                padding: 15px 25px;
+                border: none;
+                background: none;
+                font-size: 1.1em;
+                font-weight: bold;
+                color: #666;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                border-bottom: 3px solid transparent;
+                white-space: nowrap;
+            }
+            .tab-btn.active {
+                color: #667eea;
+                background: #f8f9ff;
+                border-bottom-color: #667eea;
+            }
+            .tab-btn:hover {
+                color: #667eea;
+                background: #f0f0f0;
+            }
+            .tab-content {
+                position: static;
+                padding: 30px;
+                min-height: 80vh;
+                max-width: 1000px;
+                margin: 0 auto;
+                border-radius: 0 0 15px 15px;
+            }
+            iframe { height: 700px; }
         }
     </style>
 </head>
 <body>
-    <div class="tabs">
-        <button class="tab-btn active" data-tab="home">الرئيسية</button>
-        <button class="tab-btn" data-tab="search">بحث الأصناف</button>
-        <button class="tab-btn" data-tab="prices">أسعار المبيعات</button>
-        <button class="tab-btn" data-tab="sales">صندوق دبوس</button>
-        <button class="tab-btn" data-tab="review">مراجعة الفواتير</button>
-    </div>
+    <!-- زر القائمة للموبايل -->
+    <button class="menu-btn" id="menuBtn">☰</button>
+    
+    <!-- القائمة المنسدلة للموبايل -->
+    <nav class="menu" id="menu">
+        <button class="menu-item active" data-tab="home">الرئيسية</button>
+        <button class="menu-item" data-tab="search">بحث الأصناف</button>
+        <button class="menu-item" data-tab="prices">أسعار المبيعات</button>
+        <button class="menu-item" data-tab="sales">صندوق دبوس</button>
+        <button class="menu-item" data-tab="review">مراجعة الفواتير</button>
+    </nav>
     
     <div class="tab-content">
         <!-- الرئيسية -->
@@ -118,19 +203,12 @@
                 <img src="logo.png" alt="شعار دبوس البسطة" class="logo">
                 <h1 class="home-title">دبوس البسطة</h1>
             </div>
-            <h2 style="text-align: center; color: #666;">مرحباً بك</h2>
-            <p style="text-align: center; font-size: 1.2em; color: #555;">
-                اختر أي تبويب من الأعلى لعرض الصفحات:
-            </p>
-            <ul style="max-width: 600px; margin: 20px auto; font-size: 1.1em;">
-                <li>بحث الأصناف: للبحث في المخزون</li>
-                <li>أسعار المبيعات: عرض وتعديل الأسعار</li>
-                <li>صندوق دبوس: إدارة المبيعات اليومية</li>
-                <li>مراجعة الفواتير: مراجعة وتعديل الفواتير</li>
-            </ul>
+            <div class="home-desc">
+                اختر أي صفحة من القائمة (☰) في الأعلى لعرضها كاملة الشاشة.
+            </div>
         </div>
         
-        <!-- باقي التبويبات -->
+        <!-- باقي الصفحات -->
         <div id="search" class="tab-pane">
             <div class="loading">جاري تحميل الصفحة...</div>
             <iframe src="https://dabbousbasta.github.io/Dabbous-Al-Basta/"></iframe>
@@ -150,23 +228,46 @@
     </div>
 
     <script>
-        const tabBtns = document.querySelectorAll('.tab-btn');
+        const menuBtn = document.getElementById('menuBtn');
+        const menu = document.getElementById('menu');
+        const menuItems = document.querySelectorAll('.menu-item');
         const tabPanes = document.querySelectorAll('.tab-pane');
         
-        tabBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                const tabId = btn.dataset.tab;
-                tabBtns.forEach(b => b.classList.remove('active'));
+        // فتح/إغلاق القائمة
+        menuBtn.addEventListener('click', () => {
+            menu.classList.toggle('open');
+        });
+        
+        // إغلاق القائمة عند النقر خارجها
+        document.addEventListener('click', (e) => {
+            if (!menu.contains(e.target) && !menuBtn.contains(e.target)) {
+                menu.classList.remove('open');
+            }
+        });
+        
+        // تبديل الصفحات
+        menuItems.forEach(item => {
+            item.addEventListener('click', () => {
+                const tabId = item.dataset.tab;
+                
+                // تحديث النشط
+                menuItems.forEach(i => i.classList.remove('active'));
                 tabPanes.forEach(p => p.classList.remove('active'));
-                btn.classList.add('active');
+                item.classList.add('active');
                 document.getElementById(tabId).classList.add('active');
                 
+                // إظهار iframe
                 if (tabId !== 'home') {
                     const iframe = document.querySelector(`#${tabId} iframe`);
                     const loading = document.querySelector(`#${tabId} .loading`);
-                    loading.style.display = 'none';
-                    iframe.style.display = 'block';
+                    setTimeout(() => {
+                        loading.style.display = 'none';
+                        iframe.style.display = 'block';
+                    }, 300);
                 }
+                
+                // إغلاق القائمة
+                menu.classList.remove('open');
             });
         });
     </script>
