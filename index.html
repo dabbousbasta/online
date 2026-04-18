@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>دبوس البسطة - الصفحة الرئيسية</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: #333;
+        }
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        h1 {
+            font-size: 2.5em;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            margin: 0;
+        }
+        .doors {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            width: 100%;
+        }
+        .door {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+            font-size: 1.3em;
+            position: relative;
+            overflow: hidden;
+        }
+        .door::before {
+            content: '🚪';
+            font-size: 3em;
+            display: block;
+            margin-bottom: 10px;
+        }
+        .door:hover {
+            transform: translateY(-10px) scale(1.05);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            color: #667eea;
+        }
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2em;
+            }
+            .doors {
+                grid-template-columns: 1fr;
+                gap: 20px;
+                padding: 0 10px;
+            }
+            .door {
+                padding: 25px 20px;
+                font-size: 1.1em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>دبوس البسطة</h1>
+    </header>
+    <div class="doors">
+        <a href="https://dabbousbasta.github.io/Dabbous-Al-Basta/" class="door">بحث الأصناف</a>
+        <a href="https://dabbousbasta.github.io/ITEM_PRICES/" class="door">أسعار المبيعات</a>
+        <a href="https://dabbousbasta.github.io/sales/" class="door">صندوق دبوس</a>
+        <a href="https://dabbousbasta.github.io/Prices/" class="door">مراجعة الفواتير</a>
+    </div>
+</body>
+</html>
