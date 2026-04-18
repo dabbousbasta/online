@@ -37,7 +37,7 @@
             right: 20px;
             background: white;
             width: 280px;
-            max-height: 450px;
+            max-height: 400px;
             border-radius: 12px;
             box-shadow: 0 8px 25px rgba(0,0,0,0.3);
             transform: translateX(100%);
@@ -59,12 +59,19 @@
             font-size: 18px;
             font-weight: bold;
             transition: background 0.2s;
+            position: relative;
         }
         .menu li:hover {
             background: #f0f8ff;
         }
         .menu li:last-child {
             border-bottom: none;
+        }
+        .prices-label {
+            font-size: 14px;
+            color: #666;
+            display: block;
+            margin-top: 4px;
         }
         /* Content */
         .content {
@@ -132,6 +139,7 @@
                 font-weight: bold;
                 cursor: pointer;
                 transition: all 0.3s;
+                position: relative;
             }
             .tab-btn:hover {
                 background: #e9ecef;
@@ -139,6 +147,12 @@
             .tab-btn.active {
                 background: #667eea;
                 color: white;
+            }
+            .prices-label-desktop {
+                font-size: 12px;
+                color: #999;
+                display: block;
+                margin-top: 2px;
             }
             .content {
                 position: static;
@@ -154,16 +168,6 @@
             iframe {
                 height: 750px;
             }
-            #home {
-                padding: 60px 40px;
-                text-align: center;
-            }
-            #home img {
-                max-width: 250px;
-            }
-            #home h1 {
-                font-size: 42px;
-            }
         }
     </style>
 </head>
@@ -176,8 +180,10 @@
         <ul>
             <li onclick="showTab('home')" class="active">الرئيسية</li>
             <li onclick="showTab('search')">بحث الأصناف</li>
-            <li onclick="showTab('prices')">أسعار المبيعات</li>
-            <li onclick="showTab('editprices')">تعديل أسعار المبيعات</li>
+            <li onclick="showTab('prices')" class="prices-item">
+                أسعار المبيعات
+                <span class="prices-label">دبل كليك = تعديل الأسعار</span>
+            </li>
             <li onclick="showTab('sales')">صندوق دبوس</li>
             <li onclick="showTab('review')">مراجعة الفواتير</li>
         </ul>
@@ -185,19 +191,22 @@
     
     <!-- Desktop Tabs -->
     <div class="desktop-tabs">
-        <button class="tab-btn active" onclick="showTab('home')">الرئيسية</button>
-        <button class="tab-btn" onclick="showTab('search')">بحث الأصناف</button>
-        <button class="tab-btn" onclick="showTab('prices')">أسعار المبيعات</button>
-        <button class="tab-btn" onclick="showTab('editprices')">تعديل أسعار المبيعات</button>
-        <button class="tab-btn" onclick="showTab('sales')">صندوق دبوس</button>
-        <button class="tab-btn" onclick="showTab('review')">مراجعة الفواتير</button>
+        <button class="tab-btn active" onclick="showTab('home')" ondblclick="openEditPrices()">الرئيسية</button>
+        <button class="tab-btn" onclick="showTab('search')" ondblclick="openEditPrices()">بحث الأصناف</button>
+        <button class="tab-btn" onclick="showTab('prices')" ondblclick="openEditPrices()">
+            أسعار المبيعات
+            <span class="prices-label-desktop">(دبل كليك = تعديل)</span>
+        </button>
+        <button class="tab-btn" onclick="showTab('sales')" ondblclick="openEditPrices()">صندوق دبوس</button>
+        <button class="tab-btn" onclick="showTab('review')" ondblclick="openEditPrices()">مراجعة الفواتير</button>
     </div>
     
     <!-- Home -->
     <div class="content active" id="home">
         <img src="logo.png" alt="شعار دبوس البسطة">
         <h1>دبوس البسطة</h1>
-        <p>اضغط على التبويبات أعلاه أو ☰ لاختيار الصفحة</p>
+        <p>اضغط على التبويبات أعلاه أو ☰<br>
+        <strong>ملاحظة:</strong> النقر المزدوج على "أسعار المبيعات" = تعديل الأسعار</p>
     </div>
     
     <!-- Pages -->
@@ -209,11 +218,6 @@
     <div class="content" id="prices">
         <div class="loading">⏳ جاري التحميل...</div>
         <iframe src="https://dabbousbasta.github.io/ITEM_PRICES/"></iframe>
-    </div>
-    
-    <div class="content" id="editprices">
-        <div class="loading">⏳ جاري التحميل...</div>
-        <iframe src="https://onedrive.live.com/:x:/g/personal/B621496E58CB1141/IQAlsA7JmCA1QKsnIMrD9Z4JAQj_CLoqD--dNjV3ZLoGDYs?resid=B621496E58CB1141!sc90eb02520984035ab2720cac3f59e09&ithint=file%2Cxlsx&e=Zwnxck&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3gvYy9CNjIxNDk2RTU4Q0IxMTQxL0lRQWxzQTdKbUNBMVFLc25JTXJEOVo0SkFRal9DTG9xRC0tZE5qVjNaTG9HRFlzP2U9WndueGNr"></iframe>
     </div>
     
     <div class="content" id="sales">
@@ -261,6 +265,11 @@
             const allButtons = document.querySelectorAll('.menu li, .tab-btn');
             allButtons.forEach(btn => btn.classList.remove('active'));
             event.target.classList.add('active');
+        }
+        
+        function openEditPrices() {
+            // فتح رابط تعديل الأسعار في تبويب جديد
+            window.open('https://1drv.ms/x/c/B621496E58CB1141/IQAlsA7JmCA1QKsnIMrD9Z4JAQj_CLoqD--dNjV3ZLoGDYs?e=Zwnxck', '_blank');
         }
         
         // إظهار desktop tabs على الشاشات الكبيرة
