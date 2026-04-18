@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>دبوس البسطة - الصفحة الرئيسية</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="logo.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="logo.png">
+    <link rel="apple-touch-icon" href="logo.png">
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -16,6 +20,13 @@
         header {
             text-align: center;
             margin-bottom: 20px;
+        }
+        .logo {
+            width: 120px;
+            height: auto;
+            margin-bottom: 10px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
         }
         h1 {
             font-size: 2.5em;
@@ -81,6 +92,7 @@
             border-radius: 10px;
         }
         @media (max-width: 768px) {
+            .logo { width: 100px; }
             h1 { font-size: 2em; }
             .tabs { flex-direction: column; }
             .tab-btn { padding: 15px; border-bottom: 1px solid #eee; border-radius: 0; }
@@ -91,6 +103,7 @@
 </head>
 <body>
     <header>
+        <img src="logo.png" alt="شعار دبوس البسطة" class="logo">
         <h1>دبوس البسطة</h1>
     </header>
     
@@ -115,25 +128,19 @@
             </ul>
         </div>
         
-        <!-- بحث الأصناف -->
+        <!-- باقي التبويبات نفسها -->
         <div id="search" class="tab-pane">
             <div class="loading">جاري تحميل الصفحة...</div>
             <iframe src="https://dabbousbasta.github.io/Dabbous-Al-Basta/"></iframe>
         </div>
-        
-        <!-- أسعار المبيعات -->
         <div id="prices" class="tab-pane">
             <div class="loading">جاري تحميل الصفحة...</div>
             <iframe src="https://dabbousbasta.github.io/ITEM_PRICES/"></iframe>
         </div>
-        
-        <!-- صندوق دبوس -->
         <div id="sales" class="tab-pane">
             <div class="loading">جاري تحميل الصفحة...</div>
             <iframe src="https://dabbousbasta.github.io/sales/"></iframe>
         </div>
-        
-        <!-- مراجعة الفواتير -->
         <div id="review" class="tab-pane">
             <div class="loading">جاري تحميل الصفحة...</div>
             <iframe src="https://dabbousbasta.github.io/Prices/"></iframe>
@@ -147,14 +154,11 @@
         tabBtns.forEach(btn => {
             btn.addEventListener('click', () => {
                 const tabId = btn.dataset.tab;
-                
-                // تبديل التبويبات النشطة
                 tabBtns.forEach(b => b.classList.remove('active'));
                 tabPanes.forEach(p => p.classList.remove('active'));
                 btn.classList.add('active');
                 document.getElementById(tabId).classList.add('active');
                 
-                // إخفاء loading وإظهار iframe للتبويبات غير الرئيسية
                 if (tabId !== 'home') {
                     const iframe = document.querySelector(`#${tabId} iframe`);
                     const loading = document.querySelector(`#${tabId} .loading`);
