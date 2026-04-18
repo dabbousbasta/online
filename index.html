@@ -5,269 +5,266 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>دبوس البسطة</title>
     <!-- Favicon -->
-    <link rel="icon" type="image/png" sizes="32x32" href="logo.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="logo.png">
-    <link rel="apple-touch-icon" href="logo.png">
+    <link rel="icon" type="image/png" href="logo.png">
     <style>
+        * {
+            box-sizing: border-box;
+        }
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
             color: #333;
+            height: 100vh;
             overflow: hidden;
         }
         .menu-btn {
             position: fixed;
             top: 15px;
             right: 15px;
-            z-index: 1000;
+            z-index: 1001;
             background: white;
             border: none;
             border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            font-size: 1.5em;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            width: 55px;
+            height: 55px;
+            font-size: 24px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
             cursor: pointer;
-            transition: all 0.3s ease;
         }
         .menu-btn:hover {
-            transform: scale(1.1);
-            box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+            box-shadow: 0 6px 25px rgba(0,0,0,0.4);
         }
         .menu {
             position: fixed;
-            top: 70px;
+            top: 80px;
             right: 15px;
             background: white;
-            border-radius: 15px;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
-            min-width: 220px;
-            max-height: 60vh;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            width: 240px;
+            max-height: 50vh;
             overflow-y: auto;
-            transform: translateX(100%);
+            transform: translateX(110%);
             transition: transform 0.3s ease;
-            z-index: 999;
+            z-index: 1000;
         }
-        .menu.open {
+        .menu.show {
             transform: translateX(0);
         }
         .menu-item {
-            padding: 18px 25px;
+            display: block;
+            padding: 20px 25px;
             border: none;
             background: none;
-            width: 100%;
             text-align: right;
-            font-size: 1.1em;
+            font-size: 16px;
             font-weight: bold;
-            color: #666;
+            color: #555;
             cursor: pointer;
-            transition: all 0.2s ease;
-            border-bottom: 1px solid #f0f0f0;
+            width: 100%;
+            border-bottom: 1px solid #eee;
         }
         .menu-item:last-child {
             border-bottom: none;
         }
         .menu-item:hover {
-            background: #f8f9ff;
-            color: #667eea;
-            padding-right: 30px;
+            background: #e3f2fd;
+            color: #1976d2;
         }
-        .tab-content {
-            position: absolute;
-            top: 0;
-            left: 0;
+        .content {
+            position: relative;
             width: 100%;
             height: 100vh;
-            padding: 70px 10px 10px;
-            overflow: auto;
+            padding-top: 70px;
             opacity: 0;
-            transform: translateY(20px);
-            transition: all 0.4s ease;
+            transition: opacity 0.4s ease;
+        }
+        .content.show {
+            opacity: 1;
         }
         .tab-pane {
             display: none;
             height: 100%;
+            padding: 10px;
         }
         .tab-pane.active {
             display: block;
         }
-        .tab-pane.active ~ .tab-content {
-            opacity: 1;
-            transform: translateY(0);
+        iframe {
+            width: 100%;
+            height: calc(100vh - 100px);
+            border: none;
+            border-radius: 8px;
+            display: none;
         }
         .loading {
             text-align: center;
             color: #666;
-            font-style: italic;
-            padding: 100px 20px;
+            font-size: 18px;
+            padding-top: 150px;
         }
-        iframe {
-            width: 100%;
-            height: calc(100vh - 120px);
-            border: none;
-            border-radius: 10px;
-            display: none;
-        }
-        .home-header {
+        .home-content {
             text-align: center;
-            margin: 40px 0;
+            padding: 50px 20px;
+            color: white;
         }
         .logo {
-            width: 160px;
+            width: 140px;
             height: auto;
-            margin-bottom: 20px;
-            border-radius: 15px;
-            box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+            margin: 0 auto 20px;
+            display: block;
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
         }
         .home-title {
-            font-size: 2.2em;
-            color: #333;
+            font-size: 28px;
+            margin: 0 0 15px;
+        }
+        .home-text {
+            font-size: 16px;
             margin: 0;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+            opacity: 0.9;
         }
-        .home-desc {
-            font-size: 1.2em;
-            color: #555;
-            margin: 30px auto;
-            max-width: 90%;
-            line-height: 1.6;
-        }
+        
+        /* Desktop */
         @media (min-width: 769px) {
-            /* Desktop: عرض التبويبات العادية */
-            .menu-btn, .menu { display: none; }
-            body { padding: 10px; overflow: visible; }
+            .menu-btn, .menu { display: none !important; }
+            body { overflow: auto; background: #f5f5f5; padding: 20px; height: auto; }
             .tabs {
                 display: flex;
                 justify-content: center;
                 background: white;
-                border-radius: 15px 15px 0 0;
-                box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-                margin: 0 auto 0;
+                border-radius: 12px;
+                box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+                margin: 0 auto 20px;
+                max-width: 900px;
                 overflow: hidden;
-                flex-wrap: wrap;
-                max-width: 1000px;
             }
             .tab-btn {
-                padding: 15px 25px;
+                padding: 16px 28px;
                 border: none;
                 background: none;
-                font-size: 1.1em;
+                font-size: 16px;
                 font-weight: bold;
                 color: #666;
                 cursor: pointer;
-                transition: all 0.3s ease;
-                border-bottom: 3px solid transparent;
-                white-space: nowrap;
+                flex: 1;
             }
             .tab-btn.active {
-                color: #667eea;
-                background: #f8f9ff;
-                border-bottom-color: #667eea;
+                background: #e3f2fd;
+                color: #1976d2;
             }
             .tab-btn:hover {
-                color: #667eea;
-                background: #f0f0f0;
+                background: #f5f5f5;
             }
-            .tab-content {
+            .content {
                 position: static;
-                padding: 30px;
-                min-height: 80vh;
-                max-width: 1000px;
+                padding-top: 0;
+                max-width: 900px;
                 margin: 0 auto;
-                border-radius: 0 0 15px 15px;
+                height: auto;
+                min-height: 70vh;
             }
-            iframe { height: 700px; }
+            iframe { height: 650px; }
+            .home-content { color: #333; background: white; padding: 40px; border-radius: 12px; }
+            .logo { width: 160px; }
+            .home-title { font-size: 32px; }
         }
     </style>
 </head>
 <body>
-    <!-- زر القائمة للموبايل -->
-    <button class="menu-btn" id="menuBtn">☰</button>
+    <!-- Menu Button -->
+    <button class="menu-btn" id="menuToggle">☰</button>
     
-    <!-- القائمة المنسدلة للموبايل -->
-    <nav class="menu" id="menu">
-        <button class="menu-item active" data-tab="home">الرئيسية</button>
-        <button class="menu-item" data-tab="search">بحث الأصناف</button>
-        <button class="menu-item" data-tab="prices">أسعار المبيعات</button>
-        <button class="menu-item" data-tab="sales">صندوق دبوس</button>
-        <button class="menu-item" data-tab="review">مراجعة الفواتير</button>
-    </nav>
+    <!-- Mobile Menu -->
+    <div class="menu" id="mobileMenu">
+        <button class="menu-item active" data-target="home">الرئيسية</button>
+        <button class="menu-item" data-target="search">بحث الأصناف</button>
+        <button class="menu-item" data-target="prices">أسعار المبيعات</button>
+        <button class="menu-item" data-target="sales">صندوق دبوس</button>
+        <button class="menu-item" data-target="review">مراجعة الفواتير</button>
+    </div>
     
-    <div class="tab-content">
-        <!-- الرئيسية -->
+    <!-- Content -->
+    <div class="content" id="mainContent">
+        <!-- Home -->
         <div id="home" class="tab-pane active">
-            <div class="home-header">
-                <img src="logo.png" alt="شعار دبوس البسطة" class="logo">
+            <div class="home-content">
+                <img src="logo.png" alt="دبوس البسطة" class="logo">
                 <h1 class="home-title">دبوس البسطة</h1>
-            </div>
-            <div class="home-desc">
-                اختر أي صفحة من القائمة (☰) في الأعلى لعرضها كاملة الشاشة.
+                <p class="home-text">اضغط على ☰ لاختيار الصفحة<br>كل صفحة تملأ الشاشة كاملة</p>
             </div>
         </div>
         
-        <!-- باقي الصفحات -->
+        <!-- Pages -->
         <div id="search" class="tab-pane">
-            <div class="loading">جاري تحميل الصفحة...</div>
+            <div class="loading">⏳ جاري التحميل...</div>
             <iframe src="https://dabbousbasta.github.io/Dabbous-Al-Basta/"></iframe>
         </div>
         <div id="prices" class="tab-pane">
-            <div class="loading">جاري تحميل الصفحة...</div>
+            <div class="loading">⏳ جاري التحميل...</div>
             <iframe src="https://dabbousbasta.github.io/ITEM_PRICES/"></iframe>
         </div>
         <div id="sales" class="tab-pane">
-            <div class="loading">جاري تحميل الصفحة...</div>
+            <div class="loading">⏳ جاري التحميل...</div>
             <iframe src="https://dabbousbasta.github.io/sales/"></iframe>
         </div>
         <div id="review" class="tab-pane">
-            <div class="loading">جاري تحميل الصفحة...</div>
+            <div class="loading">⏳ جاري التحميل...</div>
             <iframe src="https://dabbousbasta.github.io/Prices/"></iframe>
         </div>
     </div>
 
     <script>
-        const menuBtn = document.getElementById('menuBtn');
-        const menu = document.getElementById('menu');
-        const menuItems = document.querySelectorAll('.menu-item');
+        const menuToggle = document.getElementById('menuToggle');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const menuItems = mobileMenu.querySelectorAll('.menu-item');
         const tabPanes = document.querySelectorAll('.tab-pane');
+        const mainContent = document.getElementById('mainContent');
         
-        // فتح/إغلاق القائمة
-        menuBtn.addEventListener('click', () => {
-            menu.classList.toggle('open');
+        // Toggle menu
+        menuToggle.addEventListener('click', function() {
+            mobileMenu.classList.toggle('show');
         });
         
-        // إغلاق القائمة عند النقر خارجها
-        document.addEventListener('click', (e) => {
-            if (!menu.contains(e.target) && !menuBtn.contains(e.target)) {
-                menu.classList.remove('open');
+        // Close menu on outside click
+        document.addEventListener('click', function(e) {
+            if (!mobileMenu.contains(e.target) && !menuToggle.contains(e.target)) {
+                mobileMenu.classList.remove('show');
             }
         });
         
-        // تبديل الصفحات
-        menuItems.forEach(item => {
-            item.addEventListener('click', () => {
-                const tabId = item.dataset.tab;
+        // Switch tabs
+        menuItems.forEach(function(item) {
+            item.addEventListener('click', function() {
+                const targetId = this.dataset.target;
                 
-                // تحديث النشط
+                // Update active states
                 menuItems.forEach(i => i.classList.remove('active'));
                 tabPanes.forEach(p => p.classList.remove('active'));
-                item.classList.add('active');
-                document.getElementById(tabId).classList.add('active');
+                this.classList.add('active');
+                document.getElementById(targetId).classList.add('active');
                 
-                // إظهار iframe
-                if (tabId !== 'home') {
-                    const iframe = document.querySelector(`#${tabId} iframe`);
-                    const loading = document.querySelector(`#${tabId} .loading`);
-                    setTimeout(() => {
+                // Show content
+                mainContent.classList.add('show');
+                
+                // Handle iframe
+                if (targetId !== 'home') {
+                    const pane = document.getElementById(targetId);
+                    const loading = pane.querySelector('.loading');
+                    const iframe = pane.querySelector('iframe');
+                    loading.style.display = 'block';
+                    iframe.style.display = 'none';
+                    setTimeout(function() {
                         loading.style.display = 'none';
                         iframe.style.display = 'block';
-                    }, 300);
+                    }, 500);
                 }
                 
-                // إغلاق القائمة
-                menu.classList.remove('open');
+                // Close menu
+                mobileMenu.classList.remove('show');
             });
         });
     </script>
