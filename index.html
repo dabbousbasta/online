@@ -15,58 +15,71 @@
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: #333;
             min-height: 100vh;
-            padding-top: 60px; /* مساحة للشريط */
+            padding-bottom: 90px; /* مساحة للأزرار السفلية */
         }
-        /* Mobile Tabs - شريط أفقي صغير */
-        .mobile-tabs {
+        /* Mobile Bottom Navigation - أيقونات صغيرة أسفل */
+        .bottom-nav {
             position: fixed;
-            top: 0;
+            bottom: 0;
             left: 0;
             right: 0;
             z-index: 100;
-            background: rgba(255,255,255,0.95);
-            backdrop-filter: blur(10px);
-            height: 55px;
-            overflow-x: auto;
-            overflow-y: hidden;
-            white-space: nowrap;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            scrollbar-width: none;
-            -ms-overflow-style: none;
+            background: rgba(255,255,255,0.98);
+            backdrop-filter: blur(15px);
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            box-shadow: 0 -4px 20px rgba(0,0,0,0.15);
+            padding: 0 15px;
         }
-        .mobile-tabs::-webkit-scrollbar {
-            display: none;
-        }
-        .tab-btn-mobile {
-            display: inline-block;
+        .nav-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
             border: none;
-            background: none;
-            padding: 0 18px;
-            height: 55px;
-            line-height: 55px;
-            font-size: 14px;
-            font-weight: bold;
+            background: rgba(255,255,255,0.8);
             color: #666;
+            font-size: 12px;
+            font-weight: bold;
             cursor: pointer;
-            white-space: nowrap;
-            border-bottom: 3px solid transparent;
             transition: all 0.3s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            line-height: 1.1;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
         }
-        .tab-btn-mobile:hover {
+        .nav-icon:hover {
+            background: #fff;
             color: #667eea;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.2);
         }
-        .tab-btn-mobile.active {
-            color: #667eea;
-            border-bottom-color: #667eea;
+        .nav-icon.active {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            box-shadow: 0 6px 20px rgba(102,126,234,0.4);
         }
-        .prices-hint {
-            font-size: 11px;
-            color: #999;
-            display: block;
+        .prices-dot {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            width: 12px;
+            height: 12px;
+            background: #ff4444;
+            border-radius: 50%;
+            font-size: 10px;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         /* Content */
         .content {
-            height: calc(100vh - 60px);
+            height: calc(100vh - 90px);
             text-align: center;
             color: white;
             display: none;
@@ -82,11 +95,11 @@
             display: none;
         }
         .loading {
-            padding-top: 150px;
+            padding-top: 120px;
             font-size: 18px;
         }
         #home {
-            padding-top: 100px;
+            padding-top: 80px;
         }
         #home img {
             max-width: 200px;
@@ -104,13 +117,13 @@
         }
         /* Desktop */
         @media (min-width: 800px) {
+            .bottom-nav {
+                display: none !important;
+            }
             body {
                 background: #f8f9fa;
                 padding: 30px;
-                padding-top: 0;
-            }
-            .mobile-tabs {
-                display: none;
+                padding-bottom: 0;
             }
             .desktop-tabs {
                 display: flex;
@@ -156,26 +169,31 @@
     </style>
 </head>
 <body>
-    <!-- Mobile Tabs - شريط أفقي صغير -->
-    <div class="mobile-tabs">
-        <button class="tab-btn-mobile active" onclick="showTab('home')" ondblclick="openEditPrices()">الرئيسية</button>
-        <button class="tab-btn-mobile" onclick="showTab('search')" ondblclick="openEditPrices()">بحث الأصناف</button>
-        <button class="tab-btn-mobile" onclick="showTab('prices')" ondblclick="openEditPrices()">
-            أسعار المبيعات
-            <span class="prices-hint">دبل=تعديل</span>
+    <!-- Mobile Bottom Navigation -->
+    <div class="bottom-nav">
+        <button class="nav-icon active" onclick="showTab('home')" ondblclick="openEditPrices()">
+            الرئيسية
         </button>
-        <button class="tab-btn-mobile" onclick="showTab('sales')" ondblclick="openEditPrices()">صندوق دبوس</button>
-        <button class="tab-btn-mobile" onclick="showTab('review')" ondblclick="openEditPrices()">مراجعة الفواتير</button>
+        <button class="nav-icon" onclick="showTab('search')" ondblclick="openEditPrices()">
+            بحث
+        </button>
+        <button class="nav-icon" onclick="showTab('prices')" ondblclick="openEditPrices()">
+            أسعار
+            <div class="prices-dot">⚡</div>
+        </button>
+        <button class="nav-icon" onclick="showTab('sales')" ondblclick="openEditPrices()">
+            صندوق
+        </button>
+        <button class="nav-icon" onclick="showTab('review')" ondblclick="openEditPrices()">
+            فواتير
+        </button>
     </div>
     
     <!-- Desktop Tabs -->
     <div class="desktop-tabs">
         <button class="tab-btn active" onclick="showTab('home')" ondblclick="openEditPrices()">الرئيسية</button>
         <button class="tab-btn" onclick="showTab('search')" ondblclick="openEditPrices()">بحث الأصناف</button>
-        <button class="tab-btn" onclick="showTab('prices')" ondblclick="openEditPrices()">
-            أسعار المبيعات
-            <span style="font-size:12px;color:#999;display:block;">(دبل كليك=تعديل)</span>
-        </button>
+        <button class="tab-btn" onclick="showTab('prices')" ondblclick="openEditPrices()">أسعار المبيعات</button>
         <button class="tab-btn" onclick="showTab('sales')" ondblclick="openEditPrices()">صندوق دبوس</button>
         <button class="tab-btn" onclick="showTab('review')" ondblclick="openEditPrices()">مراجعة الفواتير</button>
     </div>
@@ -184,8 +202,8 @@
     <div class="content active" id="home">
         <img src="logo.png" alt="شعار دبوس البسطة">
         <h1>دبوس البسطة</h1>
-        <p>اضغط على التبويبات أعلاه<br>
-        <strong>دبل كليك</strong> على "أسعار المبيعات" = تعديل الأسعار</p>
+        <p>اضغط على الأيقونات أسفل الشاشة<br>
+        <strong>⚡</strong> = دبل كليك لتعديل الأسعار</p>
     </div>
     
     <!-- Pages -->
@@ -234,7 +252,7 @@
             }
             
             // تحديث الأزرار النشطة
-            const allButtons = document.querySelectorAll('.tab-btn-mobile, .tab-btn');
+            const allButtons = document.querySelectorAll('.nav-icon, .tab-btn');
             allButtons.forEach(btn => btn.classList.remove('active'));
             event.target.classList.add('active');
         }
