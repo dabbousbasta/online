@@ -15,77 +15,15 @@
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: #333;
             min-height: 100vh;
-            padding-bottom: 90px; /* مساحة للأيقونات السفلية */
-        }
-        /* Bottom Navigation - لكل الشاشات */
-        .bottom-nav {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            z-index: 100;
-            background: rgba(255,255,255,0.98);
-            backdrop-filter: blur(15px);
-            height: 80px;
-            display: flex;
-            align-items: center;
-            justify-content: space-around;
-            box-shadow: 0 -4px 20px rgba(0,0,0,0.15);
-            padding: 0 15px;
-        }
-        .nav-icon {
-            width: 65px;
-            height: 65px;
-            border-radius: 50%;
-            border: none;
-            background: rgba(255,255,255,0.8);
-            color: #666;
-            font-size: 13px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            line-height: 1.1;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-            position: relative;
-        }
-        .nav-icon:hover {
-            background: #fff;
-            color: #667eea;
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
-        }
-        .nav-icon.active {
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
-            box-shadow: 0 8px 25px rgba(102,126,234,0.4);
-        }
-        .prices-dot {
-            position: absolute;
-            top: -4px;
-            right: -4px;
-            width: 14px;
-            height: 14px;
-            background: #ff4444;
-            border-radius: 50%;
-            font-size: 10px;
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
         }
         /* Content */
         .content {
-            height: calc(100vh - 90px);
+            height: calc(100vh - 20px);
             text-align: center;
             color: white;
             display: none;
             overflow: auto;
+            padding-top: 80px;
         }
         .content.active {
             display: block;
@@ -99,9 +37,6 @@
         .loading {
             padding-top: 120px;
             font-size: 18px;
-        }
-        #home {
-            padding-top: 80px;
         }
         #home img {
             max-width: 220px;
@@ -119,12 +54,11 @@
             max-width: 90%;
             margin: 0 auto;
         }
-        /* Desktop - نفس الأيقونات السفلية + تبويبات كبيرة */
+        /* Desktop */
         @media (min-width: 800px) {
             body {
                 background: #f8f9fa;
                 padding: 30px;
-                padding-bottom: 120px; /* مساحة أكبر للأيقونات */
             }
             .desktop-tabs {
                 display: flex;
@@ -167,36 +101,10 @@
             iframe {
                 height: 750px;
             }
-            .bottom-nav {
-                max-width: 1000px;
-                margin: 0 auto;
-                border-radius: 20px 20px 0 0;
-                padding: 0 25px;
-            }
         }
     </style>
 </head>
 <body>
-    <!-- Bottom Navigation - لكل الشاشات -->
-    <div class="bottom-nav">
-        <button class="nav-icon active" onclick="showTab('home')" ondblclick="openEditPrices()">
-            الرئيسية
-        </button>
-        <button class="nav-icon" onclick="showTab('search')" ondblclick="openEditPrices()">
-            بحث
-        </button>
-        <button class="nav-icon" onclick="showTab('prices')" ondblclick="openEditPrices()">
-            أسعار
-            <div class="prices-dot">⚡</div>
-        </button>
-        <button class="nav-icon" onclick="showTab('sales')" ondblclick="openEditPrices()">
-            صندوق
-        </button>
-        <button class="nav-icon" onclick="showTab('review')" ondblclick="openEditPrices()">
-            فواتير
-        </button>
-    </div>
-    
     <!-- Desktop Tabs فقط -->
     <div class="desktop-tabs">
         <button class="tab-btn active" onclick="showTab('home')" ondblclick="openEditPrices()">الرئيسية</button>
@@ -210,7 +118,7 @@
     <div class="content active" id="home">
         <img src="logo.png" alt="شعار دبوس البسطة">
         <h1>دبوس البسطة</h1>
-        <p>اضغط على الأيقونات أسفل<br>
+        <p>اضغط على التبويبات أعلاه<br>
         <strong>⚡</strong> = دبل كليك لتعديل الأسعار</p>
     </div>
     
@@ -260,7 +168,7 @@
             }
             
             // تحديث الأزرار النشطة
-            const allButtons = document.querySelectorAll('.nav-icon, .tab-btn');
+            const allButtons = document.querySelectorAll('.tab-btn');
             allButtons.forEach(btn => btn.classList.remove('active'));
             event.target.classList.add('active');
         }
