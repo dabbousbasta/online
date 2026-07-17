@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>دبوس البسطة</title>
+    <!-- أيقونة الصفحة من logo.png -->
     <link rel="icon" type="image/png" sizes="32x32" href="logo.png">
     <link rel="icon" type="image/png" sizes="16x16" href="logo.png">
     <link rel="apple-touch-icon" href="logo.png">
@@ -11,10 +12,11 @@
         body {
             margin: 0;
             font-family: Arial, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #4a5568 0%, #2d3748 100%);
             color: #333;
             min-height: 100vh;
         }
+        /* Content */
         .content {
             height: calc(100vh - 20px);
             text-align: center;
@@ -52,35 +54,37 @@
             max-width: 90%;
             margin: 0 auto;
         }
+        /* Desktop */
         @media (min-width: 800px) {
             body {
-                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                background: linear-gradient(135deg, #4a5568 0%, #2d3748 100%);
                 padding: 30px;
             }
             .desktop-tabs {
                 display: flex;
                 max-width: 1000px;
                 margin: 0 auto 30px;
-                background: white;
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
                 border-radius: 12px;
                 overflow: hidden;
-                box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+                box-shadow: 0 6px 20px rgba(0,0,0,0.3);
             }
             .tab-btn {
                 flex: 1;
                 padding: 22px 18px;
                 border: none;
-                background: none;
+                background: transparent;
                 font-size: 16px;
                 font-weight: bold;
                 cursor: pointer;
                 transition: all 0.3s;
+                color: white;
             }
             .tab-btn:hover {
-                background: #e9ecef;
+                background: rgba(255, 255, 255, 0.2);
             }
             .tab-btn.active {
-                background: #667eea;
+                background: rgba(255, 255, 255, 0.3);
                 color: white;
             }
             .content {
@@ -88,9 +92,9 @@
                 height: auto;
                 max-width: 1000px;
                 margin: 0 auto;
-                background: white;
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
                 border-radius: 12px;
-                box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+                box-shadow: 0 6px 20px rgba(0,0,0,0.3);
                 min-height: 70vh;
                 overflow: visible;
                 padding-bottom: 20px;
@@ -102,6 +106,7 @@
     </style>
 </head>
 <body>
+    <!-- Desktop Tabs فقط -->
     <div class="desktop-tabs">
         <button class="tab-btn" onclick="showTab('search')" ondblclick="openEditPrices()">بحث الأصناف</button>
         <button class="tab-btn" onclick="showTab('prices')" ondblclick="openEditPrices()">أسعار المبيعات</button>
@@ -109,6 +114,7 @@
         <button class="tab-btn" onclick="showTab('review')" ondblclick="openEditPrices()">مراجعة الفواتير</button>
     </div>
     
+    <!-- Home -->
     <div class="content active" id="home">
         <img src="logo.png" alt="شعار دبوس البسطة">
         <h1>دبوس البسطة</h1>
@@ -116,6 +122,7 @@
         <strong>⚡</strong> = Abo Sabine</p>
     </div>
     
+    <!-- Pages -->
     <div class="content" id="search">
         <div class="loading">⏳ جاري التحميل...</div>
         <iframe src="https://dabbousbasta.github.io/Dabbous-Al-Basta/"></iframe>
@@ -138,22 +145,29 @@
 
     <script>
         function showTab(tabName) {
+            // إخفاء كل المحتوى
             const contents = document.querySelectorAll('.content');
             contents.forEach(content => content.classList.remove('active'));
+            
+            // إظهار التبويب المختار
             document.getElementById(tabName).classList.add('active');
             
+            // إظهار iframe
             if (tabName !== 'home') {
                 const targetContent = document.getElementById(tabName);
                 const loading = targetContent.querySelector('.loading');
                 const iframe = targetContent.querySelector('iframe');
+                
                 loading.style.display = 'block';
                 iframe.style.display = 'none';
+                
                 setTimeout(() => {
                     loading.style.display = 'none';
                     iframe.style.display = 'block';
                 }, 500);
             }
             
+            // تحديث الأزرار النشطة
             const allButtons = document.querySelectorAll('.tab-btn');
             allButtons.forEach(btn => btn.classList.remove('active'));
             event.target.classList.add('active');
