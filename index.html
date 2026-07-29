@@ -16,6 +16,36 @@
             color: #333;
             min-height: 100vh;
         }
+        /* Mobile Tabs */
+        .mobile-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 10px;
+            gap: 8px;
+        }
+        .mobile-tab-btn {
+            flex: 1 1 auto;
+            min-width: calc(50% - 8px);
+            padding: 14px 10px;
+            border: none;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+        .mobile-tab-btn:hover {
+            background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+            transform: translateY(-2px);
+        }
+        .mobile-tab-btn.active {
+            background: rgba(255, 255, 255, 0.3);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.3);
+        }
         /* Content */
         .content {
             height: calc(100vh - 20px);
@@ -56,6 +86,9 @@
         }
         /* Desktop */
         @media (min-width: 800px) {
+            .mobile-tabs {
+                display: none;
+            }
             body {
                 background: linear-gradient(135deg, #4a5568 0%, #2d3748 100%);
                 padding: 30px;
@@ -106,12 +139,22 @@
     </style>
 </head>
 <body>
-    <!-- Desktop Tabs فقط -->
+    <!-- Mobile Tabs -->
+    <div class="mobile-tabs">
+        <button class="mobile-tab-btn" onclick="showTab('search', event)">بحث الأصناف</button>
+        <button class="mobile-tab-btn" onclick="showTab('prices', event)">أسعار المبيعات</button>
+        <button class="mobile-tab-btn" onclick="showTab('sales', event)">صندوق دبوس</button>
+        <button class="mobile-tab-btn" onclick="showTab('review', event)">مراجعة الفواتير</button>
+        <button class="mobile-tab-btn" onclick="showTab('purchases', event)">المشتريات</button>
+    </div>
+    
+    <!-- Desktop Tabs -->
     <div class="desktop-tabs">
-        <button class="tab-btn" onclick="showTab('search')" ondblclick="openEditPrices()">بحث الأصناف</button>
-        <button class="tab-btn" onclick="showTab('prices')" ondblclick="openEditPrices()">أسعار المبيعات</button>
-        <button class="tab-btn" onclick="showTab('sales')" ondblclick="openEditPrices()">صندوق دبوس</button>
-        <button class="tab-btn" onclick="showTab('review')" ondblclick="openEditPrices()">مراجعة الفواتير</button>
+        <button class="tab-btn" onclick="showTab('search', event)" ondblclick="openEditPrices()">بحث الأصناف</button>
+        <button class="tab-btn" onclick="showTab('prices', event)" ondblclick="openEditPrices()">أسعار المبيعات</button>
+        <button class="tab-btn" onclick="showTab('sales', event)" ondblclick="openEditPrices()">صندوق دبوس</button>
+        <button class="tab-btn" onclick="showTab('review', event)" ondblclick="openEditPrices()">مراجعة الفواتير</button>
+        <button class="tab-btn" onclick="showTab('purchases', event)" ondblclick="openEditPrices()">المشتريات</button>
     </div>
     
     <!-- Home -->
@@ -142,9 +185,18 @@
         <div class="loading">⏳ جاري التحميل...</div>
         <iframe src="https://dabbousbasta.github.io/Prices/"></iframe>
     </div>
+    
+    <div class="content" id="purchases">
+        <div class="loading">⏳ جاري التحميل...</div>
+        <iframe src="https://dabbousbasta.github.io/purchases/"></iframe>
+    </div>
 
     <script>
-        function showTab(tabName) {
+        function showTab(tabName, event) {
+            if (event) {
+                event.stopPropagation();
+            }
+            
             // إخفاء كل المحتوى
             const contents = document.querySelectorAll('.content');
             contents.forEach(content => content.classList.remove('active'));
@@ -167,10 +219,23 @@
                 }, 500);
             }
             
-            // تحديث الأزرار النشطة
-            const allButtons = document.querySelectorAll('.tab-btn');
-            allButtons.forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
+            // تحديث الأزرار النشطة - Desktop
+            const desktopButtons = document.querySelectorAll('.desktop-tabs .tab-btn');
+            desktopButtons.forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.getAttribute('onclick').includes(tabName)) {
+                    btn.classList.add('active');
+                }
+            });
+            
+            // تحديث الأزرار النشطة - Mobile
+            const mobileButtons = document.querySelectorAll('.mobile-tabs .mobile-tab-btn');
+            mobileButtons.forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.getAttribute('onclick').includes(tabName)) {
+                    btn.classList.add('active');
+                }
+            });
         }
         
         function openEditPrices() {
