@@ -1,13 +1,17 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>دبوس البسطة</title>
-    <!-- أيقونة الصفحة من logo.png -->
+
+    <!-- أيقونة الصفحة -->
     <link rel="icon" type="image/png" sizes="32x32" href="logo.png">
     <link rel="icon" type="image/png" sizes="16x16" href="logo.png">
     <link rel="apple-touch-icon" href="logo.png">
+
     <style>
         body {
             margin: 0;
@@ -16,7 +20,8 @@
             color: #333;
             min-height: 100vh;
         }
-        /* Mobile Tabs */
+
+        /* تبويبات الهاتف */
         .mobile-tabs {
             display: flex;
             flex-wrap: wrap;
@@ -24,6 +29,7 @@
             padding: 10px;
             gap: 8px;
         }
+
         .mobile-tab-btn {
             flex: 1 1 auto;
             min-width: calc(50% - 8px);
@@ -36,63 +42,81 @@
             transition: all 0.3s;
             color: white;
             border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
         }
+
         .mobile-tab-btn:hover {
             background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
             transform: translateY(-2px);
         }
+
         .mobile-tab-btn.active {
             background: rgba(255, 255, 255, 0.3);
-            box-shadow: 0 6px 16px rgba(0,0,0,0.3);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
         }
-        /* Content */
+
+        /* المحتوى */
         .content {
             text-align: center;
             color: white;
             display: none;
         }
+
         .content.active {
             display: block;
         }
+
         iframe {
             width: 100%;
             border: none;
             display: none;
             min-height: 100vh;
         }
+
         .loading {
             padding-top: 80px;
             font-size: 18px;
         }
+
+        /* الصفحة الرئيسية */
         #home {
             padding-top: 80px;
         }
+
         #home img {
             max-width: 220px;
             border-radius: 15px;
             margin-bottom: 25px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
         }
+
         #home h1 {
             font-size: 32px;
             margin: 0 0 20px;
         }
+
         #home p {
             font-size: 16px;
             opacity: 0.95;
             max-width: 90%;
             margin: 0 auto;
         }
-        /* Desktop */
+
+        /* نسخة الكمبيوتر */
+        .desktop-tabs {
+            display: none;
+        }
+
         @media (min-width: 800px) {
             .mobile-tabs {
                 display: none;
             }
+
             body {
                 background: linear-gradient(135deg, #4a5568 0%, #2d3748 100%);
                 padding: 30px;
             }
+
             .desktop-tabs {
                 display: flex;
                 max-width: 1000px;
@@ -100,8 +124,9 @@
                 background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
                 border-radius: 12px;
                 overflow: hidden;
-                box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+                box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
             }
+
             .tab-btn {
                 flex: 1;
                 padding: 22px 18px;
@@ -113,13 +138,16 @@
                 transition: all 0.3s;
                 color: white;
             }
+
             .tab-btn:hover {
                 background: rgba(255, 255, 255, 0.2);
             }
+
             .tab-btn.active {
                 background: rgba(255, 255, 255, 0.3);
                 color: white;
             }
+
             .content {
                 position: static;
                 height: auto;
@@ -127,125 +155,259 @@
                 margin: 0 auto;
                 background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
                 border-radius: 12px;
-                box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+                box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
                 min-height: 70vh;
                 overflow: visible;
                 padding-bottom: 20px;
             }
+
             iframe {
                 height: 750px;
             }
         }
     </style>
 </head>
+
 <body>
-    <!-- Mobile Tabs -->
+
+    <!-- تبويبات الهاتف -->
     <div class="mobile-tabs">
-        <button class="mobile-tab-btn" onclick="showTab('search', event)">بحث الأصناف</button>
-        <button class="mobile-tab-btn" onclick="showTab('prices', event)">أسعار المبيعات</button>
-        <button class="mobile-tab-btn" onclick="showTab('sales', event)">صندوق دبوس</button>
-        <button class="mobile-tab-btn" onclick="showTab('review', event)">مراجعة الفواتير</button>
-        <button class="mobile-tab-btn" onclick="showTab('purchases', event)">المشتريات</button>
+
+        <button class="mobile-tab-btn"
+                data-tab="search"
+                onclick="showTab('search', event)">
+            1 - بحث الأصناف
+        </button>
+
+        <button class="mobile-tab-btn"
+                data-tab="cashbox"
+                onclick="showTab('cashbox', event)">
+            2 - الصندوق
+        </button>
+
+        <button class="mobile-tab-btn"
+                data-tab="purchases"
+                onclick="showTab('purchases', event)">
+            3 - المشتريات
+        </button>
+
+        <button class="mobile-tab-btn"
+                data-tab="sales"
+                onclick="showTab('sales', event)">
+            4 - المبيعات
+        </button>
+
+        <button class="mobile-tab-btn"
+                data-tab="invoices"
+                onclick="showTab('invoices', event)">
+            5 - الفواتير
+        </button>
+
     </div>
-    
-    <!-- Desktop Tabs -->
+
+    <!-- تبويبات الكمبيوتر -->
     <div class="desktop-tabs">
-        <button class="tab-btn" onclick="showTab('search', event)" ondblclick="openEditPrices()">بحث الأصناف</button>
-        <button class="tab-btn" onclick="showTab('prices', event)" ondblclick="openEditPrices()">أسعار المبيعات</button>
-        <button class="tab-btn" onclick="showTab('sales', event)" ondblclick="openEditPrices()">صندوق دبوس</button>
-        <button class="tab-btn" onclick="showTab('review', event)" ondblclick="openEditPrices()">مراجعة الفواتير</button>
-        <button class="tab-btn" onclick="showTab('purchases', event)" ondblclick="openEditPrices()">المشتريات</button>
+
+        <button class="tab-btn"
+                data-tab="search"
+                onclick="showTab('search', event)"
+                ondblclick="openEditPrices()">
+            1 - بحث الأصناف
+        </button>
+
+        <button class="tab-btn"
+                data-tab="cashbox"
+                onclick="showTab('cashbox', event)"
+                ondblclick="openEditPrices()">
+            2 - الصندوق
+        </button>
+
+        <button class="tab-btn"
+                data-tab="purchases"
+                onclick="showTab('purchases', event)"
+                ondblclick="openEditPrices()">
+            3 - المشتريات
+        </button>
+
+        <button class="tab-btn"
+                data-tab="sales"
+                onclick="showTab('sales', event)"
+                ondblclick="openEditPrices()">
+            4 - المبيعات
+        </button>
+
+        <button class="tab-btn"
+                data-tab="invoices"
+                onclick="showTab('invoices', event)"
+                ondblclick="openEditPrices()">
+            5 - الفواتير
+        </button>
+
     </div>
-    
-    <!-- Home -->
+
+    <!-- الصفحة الرئيسية -->
     <div class="content active" id="home">
         <img src="logo.png" alt="شعار دبوس البسطة">
+
         <h1>دبوس البسطة</h1>
-        <p>اضغط على التبويبات أعلاه<br>
-        <strong>⚡</strong> = Abo Sabine</p>
+
+        <p>
+            اضغط على التبويبات أعلاه<br>
+            أو استخدم الاختصار:
+            <strong>Ctrl + رقم التبويب</strong><br>
+            <strong>⚡</strong> = Abo Sabine
+        </p>
     </div>
-    
-    <!-- Pages -->
+
+    <!-- 1 - بحث الأصناف -->
     <div class="content" id="search">
         <div class="loading">⏳ جاري التحميل...</div>
+
         <iframe src="https://dabbousbasta.github.io/Dabbous-Al-Basta/"></iframe>
     </div>
-    
-    <div class="content" id="prices">
+
+    <!-- 2 - الصندوق -->
+    <div class="content" id="cashbox">
         <div class="loading">⏳ جاري التحميل...</div>
-        <iframe src="https://dabbousbasta.github.io/ITEM_PRICES/"></iframe>
-    </div>
-    
-    <div class="content" id="sales">
-        <div class="loading">⏳ جاري التحميل...</div>
+
         <iframe src="https://dabbousbasta.github.io/sales/"></iframe>
     </div>
-    
-    <div class="content" id="review">
-        <div class="loading">⏳ جاري التحميل...</div>
-        <iframe src="https://dabbousbasta.github.io/Prices/"></iframe>
-    </div>
-    
+
+    <!-- 3 - المشتريات -->
     <div class="content" id="purchases">
         <div class="loading">⏳ جاري التحميل...</div>
+
         <iframe src="https://dabbousbasta.github.io/purchases/"></iframe>
     </div>
 
+    <!-- 4 - المبيعات -->
+    <div class="content" id="sales">
+        <div class="loading">⏳ جاري التحميل...</div>
+
+        <iframe src="https://dabbousbasta.github.io/ITEM_PRICES/"></iframe>
+    </div>
+
+    <!-- 5 - الفواتير -->
+    <div class="content" id="invoices">
+        <div class="loading">⏳ جاري التحميل...</div>
+
+        <iframe src="https://dabbousbasta.github.io/Prices/"></iframe>
+    </div>
+
     <script>
+        /*
+         * فتح التبويب المطلوب
+         */
         function showTab(tabName, event) {
             if (event) {
                 event.stopPropagation();
             }
-            
-            // إخفاء كل المحتوى
+
+            // إخفاء جميع المحتويات
             const contents = document.querySelectorAll('.content');
-            contents.forEach(content => content.classList.remove('active'));
-            
-            // إظهار التبويب المختار
-            document.getElementById(tabName).classList.add('active');
-            
-            // إظهار iframe
-            if (tabName !== 'home') {
-                const targetContent = document.getElementById(tabName);
-                const loading = targetContent.querySelector('.loading');
-                const iframe = targetContent.querySelector('iframe');
-                
-                loading.style.display = 'block';
-                iframe.style.display = 'none';
-                
-                setTimeout(() => {
-                    loading.style.display = 'none';
-                    iframe.style.display = 'block';
-                }, 500);
+
+            contents.forEach(content => {
+                content.classList.remove('active');
+            });
+
+            // إظهار المحتوى المختار
+            const selectedContent = document.getElementById(tabName);
+
+            if (!selectedContent) {
+                return;
             }
-            
-            // تحديث الأزرار النشطة - Desktop
-            const desktopButtons = document.querySelectorAll('.desktop-tabs .tab-btn');
-            desktopButtons.forEach(btn => {
-                btn.classList.remove('active');
-                if (btn.getAttribute('onclick').includes(tabName)) {
-                    btn.classList.add('active');
+
+            selectedContent.classList.add('active');
+
+            // إظهار رسالة التحميل ثم iframe
+            if (tabName !== 'home') {
+                const loading = selectedContent.querySelector('.loading');
+                const iframe = selectedContent.querySelector('iframe');
+
+                if (loading && iframe) {
+                    loading.style.display = 'block';
+                    iframe.style.display = 'none';
+
+                    setTimeout(() => {
+                        loading.style.display = 'none';
+                        iframe.style.display = 'block';
+                    }, 500);
                 }
+            }
+
+            // إزالة حالة Active من جميع الأزرار
+            const allButtons = document.querySelectorAll(
+                '.desktop-tabs .tab-btn, .mobile-tabs .mobile-tab-btn'
+            );
+
+            allButtons.forEach(button => {
+                button.classList.remove('active');
             });
-            
-            // تحديث الأزرار النشطة - Mobile
-            const mobileButtons = document.querySelectorAll('.mobile-tabs .mobile-tab-btn');
-            mobileButtons.forEach(btn => {
-                btn.classList.remove('active');
-                if (btn.getAttribute('onclick').includes(tabName)) {
-                    btn.classList.add('active');
-                }
+
+            // تفعيل أزرار التبويب الحالي
+            const activeButtons = document.querySelectorAll(
+                `[data-tab="${tabName}"]`
+            );
+
+            activeButtons.forEach(button => {
+                button.classList.add('active');
             });
         }
-        
+
+        /*
+         * اختصارات لوحة المفاتيح:
+         * Ctrl + 1 = بحث الأصناف
+         * Ctrl + 2 = الصندوق
+         * Ctrl + 3 = المشتريات
+         * Ctrl + 4 = المبيعات
+         * Ctrl + 5 = الفواتير
+         */
+        document.addEventListener('keydown', function (event) {
+            if (!event.ctrlKey || event.altKey || event.shiftKey) {
+                return;
+            }
+
+            const shortcuts = {
+                '1': 'search',
+                '2': 'cashbox',
+                '3': 'purchases',
+                '4': 'sales',
+                '5': 'invoices'
+            };
+
+            const tabName = shortcuts[event.key];
+
+            if (tabName) {
+                event.preventDefault();
+                showTab(tabName);
+            }
+        });
+
+        /*
+         * فتح ملف تعديل الأسعار عند الضغط المزدوج
+         */
         function openEditPrices() {
-            window.open('https://1drv.ms/x/c/B621496E58CB1141/IQAlsA7JmCA1QKsnIMrD9Z4JAQj_CLoqD--dNjV3ZLoGDYs?e=Zwnxck', '_blank');
+            window.open(
+                'https://1drv.ms/x/c/B621496E58CB1141/IQAlsA7JmCA1QKsnIMrD9Z4JAQj_CLoqD--dNjV3ZLoGDYs?e=Zwnxck',
+                '_blank'
+            );
         }
-        
-        // تعديل ارتفاع iframe تلقائياً حسب المحتوى
+
+        /*
+         * تعديل ارتفاع iframe تلقائياً حسب المحتوى
+         * ملاحظة: قد لا يعمل مع الصفحات الموجودة على نطاق مختلف
+         * بسبب حماية المتصفح Cross-Origin.
+         */
         function resizeIframe(iframe) {
-            iframe.style.height = (iframe.contentWindow.document.body.scrollHeight) + 'px';
+            try {
+                iframe.style.height =
+                    iframe.contentWindow.document.body.scrollHeight + 'px';
+            } catch (error) {
+                console.log('لا يمكن قراءة ارتفاع الصفحة داخل iframe.');
+            }
         }
     </script>
+
 </body>
+
 </html>
