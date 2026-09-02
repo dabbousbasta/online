@@ -23,16 +23,15 @@
 
         /* تبويبات الهاتف */
         .mobile-tabs {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
             padding: 10px;
             gap: 8px;
         }
 
         .mobile-tab-btn {
-            flex: 1 1 auto;
-            min-width: calc(50% - 8px);
+            width: 100%;
+            min-width: 0;
             padding: 14px 10px;
             border: none;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -119,7 +118,8 @@
 
             .desktop-tabs {
                 display: flex;
-                max-width: 1000px;
+                flex-wrap: nowrap;
+                max-width: 1200px;
                 margin: 0 auto 30px;
                 background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
                 border-radius: 12px;
@@ -129,7 +129,8 @@
 
             .tab-btn {
                 flex: 1;
-                padding: 22px 18px;
+                min-width: 0;
+                padding: 22px 12px;
                 border: none;
                 background: transparent;
                 font-size: 16px;
@@ -137,6 +138,7 @@
                 cursor: pointer;
                 transition: all 0.3s;
                 color: white;
+                white-space: nowrap;
             }
 
             .tab-btn:hover {
@@ -151,7 +153,7 @@
             .content {
                 position: static;
                 height: auto;
-                max-width: 1000px;
+                max-width: 1200px;
                 margin: 0 auto;
                 background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
                 border-radius: 12px;
@@ -192,15 +194,21 @@
         </button>
 
         <button class="mobile-tab-btn"
+                data-tab="accounts"
+                onclick="showTab('accounts', event)">
+            4 - الحسابات
+        </button>
+
+        <button class="mobile-tab-btn"
                 data-tab="sales"
                 onclick="showTab('sales', event)">
-            4 - المبيعات
+            5 - المبيعات
         </button>
 
         <button class="mobile-tab-btn"
                 data-tab="invoices"
                 onclick="showTab('invoices', event)">
-            5 - الفواتير
+            6 - الفواتير
         </button>
 
     </div>
@@ -230,17 +238,24 @@
         </button>
 
         <button class="tab-btn"
+                data-tab="accounts"
+                onclick="showTab('accounts', event)"
+                ondblclick="openEditPrices()">
+            4 - الحسابات
+        </button>
+
+        <button class="tab-btn"
                 data-tab="sales"
                 onclick="showTab('sales', event)"
                 ondblclick="openEditPrices()">
-            4 - المبيعات
+            5 - المبيعات
         </button>
 
         <button class="tab-btn"
                 data-tab="invoices"
                 onclick="showTab('invoices', event)"
                 ondblclick="openEditPrices()">
-            5 - الفواتير
+            6 - الفواتير
         </button>
 
     </div>
@@ -280,14 +295,21 @@
         <iframe src="https://dabbousbasta.github.io/purchases/"></iframe>
     </div>
 
-    <!-- 4 - المبيعات -->
+    <!-- 4 - الحسابات -->
+    <div class="content" id="accounts">
+        <div class="loading">⏳ جاري التحميل...</div>
+
+        <iframe src="https://dabbousbasta.github.io/customer-papers-app/"></iframe>
+    </div>
+
+    <!-- 5 - المبيعات -->
     <div class="content" id="sales">
         <div class="loading">⏳ جاري التحميل...</div>
 
         <iframe src="https://dabbousbasta.github.io/ITEM_PRICES/"></iframe>
     </div>
 
-    <!-- 5 - الفواتير -->
+    <!-- 6 - الفواتير -->
     <div class="content" id="invoices">
         <div class="loading">⏳ جاري التحميل...</div>
 
@@ -359,8 +381,9 @@
          * Ctrl + 1 = بحث الأصناف
          * Ctrl + 2 = الصندوق
          * Ctrl + 3 = المشتريات
-         * Ctrl + 4 = المبيعات
-         * Ctrl + 5 = الفواتير
+         * Ctrl + 4 = الحسابات
+         * Ctrl + 5 = المبيعات
+         * Ctrl + 6 = الفواتير
          */
         document.addEventListener('keydown', function (event) {
             if (!event.ctrlKey || event.altKey || event.shiftKey) {
@@ -371,8 +394,9 @@
                 '1': 'search',
                 '2': 'cashbox',
                 '3': 'purchases',
-                '4': 'sales',
-                '5': 'invoices'
+                '4': 'accounts',
+                '5': 'sales',
+                '6': 'invoices'
             };
 
             const tabName = shortcuts[event.key];
