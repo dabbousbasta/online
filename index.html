@@ -211,6 +211,20 @@
             6 - الفواتير
         </button>
 
+        <button class="mobile-tab-btn"
+                data-tab="online-store"
+                onclick="showTab('online-store', event)"
+                aria-label="فتح صفحة دبوس أونلاين">
+            7 - دبوس أونلاين
+        </button>
+
+        <button class="mobile-tab-btn"
+                data-tab="online-admin"
+                onclick="showTab('online-admin', event)"
+                aria-label="فتح لوحة أدمن دبوس أونلاين">
+            8 - أدمن أونلاين
+        </button>
+
     </div>
 
     <!-- تبويبات الكمبيوتر -->
@@ -258,6 +272,22 @@
             6 - الفواتير
         </button>
 
+        <button class="tab-btn"
+                data-tab="online-store"
+                onclick="showTab('online-store', event)"
+                ondblclick="openEditPrices()"
+                aria-label="فتح صفحة دبوس أونلاين">
+            7 - دبوس أونلاين
+        </button>
+
+        <button class="tab-btn"
+                data-tab="online-admin"
+                onclick="showTab('online-admin', event)"
+                ondblclick="openEditPrices()"
+                aria-label="فتح لوحة أدمن دبوس أونلاين">
+            8 - أدمن أونلاين
+        </button>
+
     </div>
 
     <!-- الصفحة الرئيسية -->
@@ -278,42 +308,88 @@
     <div class="content" id="search">
         <div class="loading">⏳ جاري التحميل...</div>
 
-        <iframe src="https://dabbousbasta.github.io/Dabbous-Al-Basta/"></iframe>
+        <iframe
+            src="https://dabbousbasta.github.io/Dabbous-Al-Basta/"
+            title="بحث الأصناف"
+            loading="lazy">
+        </iframe>
     </div>
 
     <!-- 2 - الصندوق -->
     <div class="content" id="cashbox">
         <div class="loading">⏳ جاري التحميل...</div>
 
-        <iframe src="https://dabbousbasta.github.io/sales/"></iframe>
+        <iframe
+            src="https://dabbousbasta.github.io/sales/"
+            title="الصندوق"
+            loading="lazy">
+        </iframe>
     </div>
 
     <!-- 3 - المشتريات -->
     <div class="content" id="purchases">
         <div class="loading">⏳ جاري التحميل...</div>
 
-        <iframe src="https://dabbousbasta.github.io/purchases/"></iframe>
+        <iframe
+            src="https://dabbousbasta.github.io/purchases/"
+            title="المشتريات"
+            loading="lazy">
+        </iframe>
     </div>
 
     <!-- 4 - الحسابات -->
     <div class="content" id="accounts">
         <div class="loading">⏳ جاري التحميل...</div>
 
-        <iframe src="https://dabbousbasta.github.io/customer-papers-app/"></iframe>
+        <iframe
+            src="https://dabbousbasta.github.io/customer-papers-app/"
+            title="الحسابات"
+            loading="lazy">
+        </iframe>
     </div>
 
     <!-- 5 - المبيعات -->
     <div class="content" id="sales">
         <div class="loading">⏳ جاري التحميل...</div>
 
-        <iframe src="https://dabbousbasta.github.io/ITEM_PRICES/"></iframe>
+        <iframe
+            src="https://dabbousbasta.github.io/ITEM_PRICES/"
+            title="المبيعات"
+            loading="lazy">
+        </iframe>
     </div>
 
     <!-- 6 - الفواتير -->
     <div class="content" id="invoices">
         <div class="loading">⏳ جاري التحميل...</div>
 
-        <iframe src="https://dabbousbasta.github.io/Prices/"></iframe>
+        <iframe
+            src="https://dabbousbasta.github.io/Prices/"
+            title="الفواتير"
+            loading="lazy">
+        </iframe>
+    </div>
+
+    <!-- 7 - دبوس أونلاين -->
+    <div class="content" id="online-store">
+        <div class="loading">⏳ جاري التحميل...</div>
+
+        <iframe
+            src="https://dabbousbasta.github.io/dabous-online-store/#/"
+            title="دبوس أونلاين"
+            loading="lazy">
+        </iframe>
+    </div>
+
+    <!-- 8 - أدمن دبوس أونلاين -->
+    <div class="content" id="online-admin">
+        <div class="loading">⏳ جاري التحميل...</div>
+
+        <iframe
+            src="https://dabbousbasta.github.io/dabous-online-store/#/admin"
+            title="أدمن دبوس أونلاين"
+            loading="lazy">
+        </iframe>
     </div>
 
     <script>
@@ -384,6 +460,8 @@
          * Ctrl + 4 = الحسابات
          * Ctrl + 5 = المبيعات
          * Ctrl + 6 = الفواتير
+         * Ctrl + 7 = دبوس أونلاين
+         * Ctrl + 8 = أدمن دبوس أونلاين
          */
         document.addEventListener('keydown', function (event) {
             if (!event.ctrlKey || event.altKey || event.shiftKey) {
@@ -396,7 +474,9 @@
                 '3': 'purchases',
                 '4': 'accounts',
                 '5': 'sales',
-                '6': 'invoices'
+                '6': 'invoices',
+                '7': 'online-store',
+                '8': 'online-admin'
             };
 
             const tabName = shortcuts[event.key];
