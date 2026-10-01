@@ -168,6 +168,13 @@
             }
         }
     </style>
+<link rel="manifest" href="/online/manifest.webmanifest">
+<meta name="theme-color" content="#0f766e">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="دبوس البسطة">
+<link rel="apple-touch-icon" href="/online/icons/icon-192.png">
 </head>
 
 <body>
@@ -511,7 +518,13 @@
             }
         }
     </script>
-
+<script>
+  if ("serviceWorker" in navigator) {
+    window.addEventListener("load", () => {
+      navigator.serviceWorker.register("/online/service-worker.js");
+    });
+  }
+</script>
 </body>
 
 </html>

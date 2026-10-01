@@ -1,0 +1,27 @@
+{
+  "name": "دبوس البسطة",
+  "short_name": "دبوس",
+  "description": "تطبيق دبوس البسطة",
+  "id": "/online/",
+  "start_url": "/online/",
+  "scope": "/online/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#0f766e",
+  "lang": "ar",
+  "dir": "rtl",
+  "icons": [
+    {
+      "src": "/online/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/online/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
